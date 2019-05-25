@@ -26,13 +26,11 @@ else
 	echo "---Runtime found---"
 fi      
 
-sleep infinity
-
-echo "---Checking if Minecraft is installed---"
+echo "---Checking for Minecraft Server executable ---"
 if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
 	cd ${SERVER_DIR}
-	echo "---Downloading Minecraft Server 1.14.1
-    wget -qi https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar
+	echo "---Downloading Minecraft Server 1.14.1---"
+    wget -qi ${JAR_NAME} https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar
     sleep 2
     if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
     	echo "----------------------------------------------------------------------------------------------------"
@@ -40,6 +38,8 @@ if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
         echo "----------------------------------------------------------------------------------------------------"
         sleep infinity
     fi
+else
+	echo "---Minecraft Server executable found---"
 fi
 
 echo "---Preparing Server---"
@@ -47,10 +47,9 @@ chmod -R 770 ${DATA_DIR}
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 
-sleep infinity
-
 echo "---Starting Server---"
 cd ${SERVER_DIR}
-screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE} -Xms${XMS_SIZE} -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
-sleep 2
+screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+sleep 3
+chmod -R 770 ${SERVER_DIR}
 tail -f ${SERVER_DIR}/masterLog.0
