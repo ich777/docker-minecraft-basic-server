@@ -67,11 +67,11 @@ if [ "${ACCEPT_EULA}" == "true" ]; then
     fi
 elif [ "${ACCEPT_EULA}" == "false" ]; then
 	if grep -rq 'eula=true' ${SERVER_DIR}/eula.txt; then
-    	sed -i '/eula=true/c\eula=false' ${SERVER_DIR}/eula.txt
-    fi
+		sed -i '/eula=true/c\eula=false' ${SERVER_DIR}/eula.txt
+	fi
     echo "---EULA not accepted, putting server in sleep mode---"
     sleep infinity
 else
-	echo "---Something went wront, please check EULA variable---"
+	echo "---Something went wrong, please check EULA variable---"
 fi
 tail -f ${SERVER_DIR}/masterLog.0
