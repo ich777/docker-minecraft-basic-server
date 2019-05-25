@@ -7,14 +7,12 @@ else
 	echo "---"runtime" folder found---"
 fi
 
-sleep infinity
-
 echo "---Checking if Runtime is installed---"
-if [ ! -d $SERVER_DIR/runtime/"$(find ${SERVER_DIR} -name jre*)" ]; then
-    if [ "{RUNTIME_NAME}" == "jre1.8.0_211"]; then
+if [ -z "$(find ${SERVER_DIR} -name jre*)" ]; then
+    if [ "${RUNTIME_NAME}" == "jre1.8.0_211" ]; then
     	echo "---Downloading and installing Runtime---"
 		cd ${SERVER_DIR}/runtime
-		wget -qi https://github.com/ich777/docker-minecraft-basic-server/raw/master/runtime/8u211.tar.gz
+		wget -qi ${RUNTIME_NAME} https://github.com/ich777/docker-minecraft-basic-server/raw/master/runtime/8u211.tar.gz
         tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
@@ -27,6 +25,8 @@ if [ ! -d $SERVER_DIR/runtime/"$(find ${SERVER_DIR} -name jre*)" ]; then
 else
 	echo "---Runtime found---"
 fi      
+
+sleep infinity
 
 echo "---Checking if Minecraft is installed---"
 if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
