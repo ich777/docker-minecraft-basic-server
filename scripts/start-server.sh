@@ -50,6 +50,6 @@ find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 echo "---Starting Server---"
 cd ${SERVER_DIR}
 screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
-sleep 3
+sleep 10
 chmod -R 770 ${SERVER_DIR}/eula.txt
 tail -f ${SERVER_DIR}/masterLog.0
