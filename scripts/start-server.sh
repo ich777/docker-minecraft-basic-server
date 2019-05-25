@@ -44,6 +44,13 @@ else
 fi
 
 echo "---Preparing Server---"
+echo "---Checking for 'server.properties'---"
+if [ ! -f ${SERVER_DIR}/server.properties ]; then
+    echo "---No 'server.properties' found, downloading...---"
+    wget -qi ${SERVER_DIR}/server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-basic-server/master/config/server.properties
+else
+    echo "---'server.properties' found..."
+fi
 chmod -R 770 ${DATA_DIR}
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
@@ -59,7 +66,12 @@ if [ "${ACCEPT_EULA}" == "true" ]; then
         sleep infinity
     fi
 elif [ "${ACCEPT_EULA}" == "false" ]; then
+	if grep -rq 'eula=true' ${SERVER_DIR}/eula.txt; then
+    	sed -i '/eula=true/c\eula=false' ${SERVER_DIR}/eula.txt
+    fi
     echo "---EULA not accepted, putting server in sleep mode---"
     sleep infinity
+else
+	echo "---Something went wront, please check EULA variable---"
 fi
 tail -f ${SERVER_DIR}/masterLog.0
