@@ -16,11 +16,14 @@ if [ ! -d $SERVER_DIR/runtime/"$(find ${SERVER_DIR} -name jre*)" ]; then
         tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
-        echo "---------------------------------------------------------------------------------------------"
-        echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
-        echo "---------------------------------------------------------------------------------------------"
-        sleep infinity
+        	echo "---------------------------------------------------------------------------------------------"
+        	echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
+        	echo "---------------------------------------------------------------------------------------------"
+        	sleep infinity
+        fi
     fi
+else
+	echo "---Runtime found---"
 fi      
 
 echo "---Checking if Minecraft is installed---"
