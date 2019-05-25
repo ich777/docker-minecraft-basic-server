@@ -14,6 +14,7 @@ if [ -z "$(find ${SERVER_DIR} -name jre*)" ]; then
 		cd ${SERVER_DIR}/runtime
 		wget -qi ${RUNTIME_NAME} https://github.com/ich777/docker-minecraft-basic-server/raw/master/runtime/8u211.tar.gz
         tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/8u211.tar.gz
+        rm -R ${SERVER_DIR}/runtime/8u211.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
