@@ -54,10 +54,11 @@ screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/ru
 sleep 10
 if [ "${ACCEPT_EULA}" == "true" ]; then
 	if grep -rq 'eula=false' ${SERVER_DIR}/eula.txt; then
-    	sed -i 'eula=false/c\eula=true' ${SERVER_DIR}/eula.txt
+    	sed -i '/eula=false/c\eula=true' ${SERVER_DIR}/eula.txt
 		echo "---EULA accepted, please restart server---"
+        sleep infinity
     fi
-else
+elif [ "${ACCEPT_EULA}" == "false" ]; then
     echo "---EULA not accepted, putting server in sleep mode---"
     sleep infinity
 fi
