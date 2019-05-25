@@ -32,7 +32,10 @@ if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
     wget -qi https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar
     sleep 2
     if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
-    	echo "---Something went wrong, please install Minecraft Server manually---"
+    	echo "----------------------------------------------------------------------------------------------------"
+    	echo "---Something went wrong, please install Minecraft Server manually. Putting server into sleep mode---"
+        echo "----------------------------------------------------------------------------------------------------"
+        sleep infinity
     fi
 fi
 
