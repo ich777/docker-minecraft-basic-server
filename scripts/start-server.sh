@@ -52,6 +52,17 @@ else
     echo "---'server.properties' found..."
 fi
 chmod -R 770 ${DATA_DIR}
+if [ ! -f $SERVER_DIR/eula.txt ]; then
+	:
+else
+	if [ "${ACCEPT_EULA}" == "false" ]; then
+		if grep -rq 'eula=true' ${SERVER_DIR}/eula.txt; then
+			sed -i '/eula=true/c\eula=false' ${SERVER_DIR}/eula.txt
+		fi
+    	echo "---EULA not accepted, putting server in sleep mode---"
+    	sleep infinity
+    fi
+fi
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 
