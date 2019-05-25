@@ -21,8 +21,6 @@ if [ ! -d $SERVER_DIR/runtime/"$(find ${SERVER_DIR} -name jre*)" ]; then
         echo "---------------------------------------------------------------------------------------------"
         sleep infinity
     fi
-else
-	echo "---Runtime found!---"
 fi      
 
 echo "---Checking if Minecraft is installed---"
