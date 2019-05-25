@@ -59,7 +59,11 @@ else
 		if grep -rq 'eula=true' ${SERVER_DIR}/eula.txt; then
 			sed -i '/eula=true/c\eula=false' ${SERVER_DIR}/eula.txt
 		fi
-    	echo "---EULA not accepted, putting server in sleep mode---"
+		echo
+		echo "-------------------------------------------------------"
+    	echo "------EULA not accepted, you must accept the EULA------"
+    	echo "---to start the Server, putting server in sleep mode---"
+    	echo "-------------------------------------------------------"
     	sleep infinity
     fi
 fi
@@ -77,10 +81,11 @@ if [ "${ACCEPT_EULA}" == "true" ]; then
         sleep infinity
     fi
 elif [ "${ACCEPT_EULA}" == "false" ]; then
-	if grep -rq 'eula=true' ${SERVER_DIR}/eula.txt; then
-		sed -i '/eula=true/c\eula=false' ${SERVER_DIR}/eula.txt
-	fi
-    echo "---EULA not accepted, putting server in sleep mode---"
+	echo
+	echo "-------------------------------------------------------"
+    echo "------EULA not accepted, you must accept the EULA------"
+    echo "---to start the Server, putting server in sleep mode---"
+    echo "-------------------------------------------------------"
     sleep infinity
 else
 	echo "---Something went wrong, please check EULA variable---"
