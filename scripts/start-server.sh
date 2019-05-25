@@ -7,6 +7,8 @@ else
 	echo "---"runtime" folder found---"
 fi
 
+sleep infinity
+
 echo "---Checking if Runtime is installed---"
 if [ ! -d $SERVER_DIR/runtime/"$(find ${SERVER_DIR} -name jre*)" ]; then
     if [ "{RUNTIME_NAME}" == "jre1.8.0_211"]; then
