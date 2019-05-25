@@ -38,9 +38,11 @@ fi
 
 echo "---Preparing Server---"
 chmod -R 770 ${DATA_DIR}
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 
 sleep infinity
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE} -Xms${XMS_SIZE} -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+screen -S Minecraft -L -Logfile ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE} -Xms${XMS_SIZE} -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
