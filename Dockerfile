@@ -7,15 +7,14 @@ RUN apt-get -y install wget screen
 
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV GAME_ID="template"
-ENV GAME_NAME="template"
-ENV GAME_PARAMS="template"
-ENV GAME_PORT=27015
-ENV VALIDATE=""
+ENV RUNTIME_NAME="template"
+ENV JAR_NAME="template"
+ENV GAME_PARAMS=""
+ENV GAME_PORT=25565
+ENV XMX_SIZE=1024
+ENV XMS_SIZE=1024
 ENV UID=99
 ENV GID=100
-ENV USERNAME=""
-ENV PASSWRD=""
 
 RUN mkdir $DATA_DIR
 RUN mkdir $SERVER_DIR
