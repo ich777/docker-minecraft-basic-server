@@ -45,4 +45,6 @@ sleep infinity
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
-screen -S Minecraft -L -Logfile ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE} -Xms${XMS_SIZE} -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE} -Xms${XMS_SIZE} -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+sleep 2
+tail -f ${SERVER_DIR}/masterLog.0
