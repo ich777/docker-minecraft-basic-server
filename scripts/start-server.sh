@@ -90,9 +90,10 @@ elif [ "${ACCEPT_EULA}" == "false" ]; then
 else
 	echo "---Something went wrong, please check EULA variable---"
 fi
-timeout 5s tail -f /dev/null
+echo "---Waiting for logs, please stand by...---"
+sleep 30
 if [ -f ${SERVER_DIR}/logs/latest.log ]; then
-        tail -f ${SERVER_DIR}/masterLog.0 ${SERVER_DIR}/logs/latest.log
+        tail -f ${SERVER_DIR}/logs/latest.log
 else
         tail -f ${SERVER_DIR}/masterLog.0
 fi
