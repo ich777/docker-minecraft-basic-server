@@ -73,7 +73,7 @@ find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 echo "---Starting Server---"
 cd ${SERVER_DIR}
 screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
-sleep 10
+sleep 2
 if [ "${ACCEPT_EULA}" == "true" ]; then
 	if grep -rq 'eula=false' ${SERVER_DIR}/eula.txt; then
     	sed -i '/eula=false/c\eula=true' ${SERVER_DIR}/eula.txt
@@ -90,4 +90,9 @@ elif [ "${ACCEPT_EULA}" == "false" ]; then
 else
 	echo "---Something went wrong, please check EULA variable---"
 fi
-tail -f ${SERVER_DIR}/masterLog.0
+timeout 5s tail -f /dev/null
+if [ -f ${SERVER_DIR}/logs/latest.log ]; then
+        sleep 5 && tail -f ${SERVER_DIR}/masterLog.0 ${SERVER_DIR}/logs/latest.log
+else
+        tail -f ${SERVER_DIR}/masterLog.0
+fi
