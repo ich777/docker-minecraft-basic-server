@@ -92,7 +92,7 @@ else
 fi
 timeout 5s tail -f /dev/null
 if [ -f ${SERVER_DIR}/logs/latest.log ]; then
-        sleep 5 && tail -f ${SERVER_DIR}/masterLog.0 ${SERVER_DIR}/logs/latest.log
+        tail -f ${SERVER_DIR}/masterLog.0 ${SERVER_DIR}/logs/latest.log
 else
         tail -f ${SERVER_DIR}/masterLog.0
 fi
