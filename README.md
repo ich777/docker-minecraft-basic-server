@@ -32,8 +32,7 @@ docker run --name MinecraftBasicServer -d \
     --env 'ACCEPT_EULA=true' \
 	--env 'UID=99' \
 	--env 'GID=100' \
-	--volume /mnt/user/appdata/steamcmd:/serverdata/steamcmd \
-	--volume /mnt/user/appdata/cstrikesource:/serverdata/serverfiles \
+	--volume /mnt/user/appdata/minecraftbasicserver:/serverdata/serverfiles \
 	ich777/minecraftbasicserver
 ```
 >**NOTE** You can also forward port the TCP port 25575 if you want to connect to the RCON console.
