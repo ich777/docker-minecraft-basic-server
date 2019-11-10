@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
 echo "---Checking for 'runtime' folder---"
 if [ ! -d ${SERVER_DIR}/runtime ]; then
 	echo "---'runtime' folder not found, creating...---"
@@ -51,7 +53,7 @@ if [ ! -f ${SERVER_DIR}/server.properties ]; then
 else
     echo "---'server.properties' found..."
 fi
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 if [ ! -f $SERVER_DIR/eula.txt ]; then
 	:
 else
