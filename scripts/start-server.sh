@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
+
 echo "---Checking for 'runtime' folder---"
 if [ ! -d ${SERVER_DIR}/runtime ]; then
 	echo "---'runtime' folder not found, creating...---"
