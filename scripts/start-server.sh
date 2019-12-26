@@ -11,7 +11,7 @@ else
 fi
 
 echo "---Checking if Runtime is installed---"
-if [ -z "$(find ${SERVER_DIR} -name jre*)" ]; then
+if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
     if [ "${RUNTIME_NAME}" == "jre1.8.0_211" ]; then
     	echo "---Downloading and installing Runtime---"
 		cd ${SERVER_DIR}/runtime
