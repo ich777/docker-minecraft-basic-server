@@ -10,7 +10,6 @@ else
 	echo "---'runtime' folder found---"
 fi
 
-
 echo "---Checking if Runtime is installed---"
 if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
     if [ "${RUNTIME_NAME}" == "basicjre" ]; then
