@@ -39,7 +39,7 @@ echo "---Checking for Minecraft Server executable ---"
 if [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
 	cd ${SERVER_DIR}
 	echo "---Downloading Minecraft Server 1.14.1---"
-	if wget -nc --show-progress --progress=bar:force:noscroll -q ${JAR_NAME} https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar ; then
+	if wget -nc --show-progress --progress=bar:force:noscroll -q https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar ; then
 		echo "---Successfully downloaded Minecraft Server!---"
 	else
 		echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
@@ -61,7 +61,7 @@ export RUNTIME_NAME="$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)"
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
-	if wget -nc --show-progress --progress=bar:force:noscroll -q ${SERVER_DIR}/server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-basic-server/master/config/server.properties ; then
+	if wget -nc --show-progress --progress=bar:force:noscroll -q https://raw.githubusercontent.com/ich777/docker-minecraft-basic-server/master/config/server.properties ; then
 		echo "---Successfully downloaded 'server.properties'!---"
 	else
 		echo "---Something went wrong, can't download 'server.properties', putting server in sleep mode---"
