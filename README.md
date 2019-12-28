@@ -10,7 +10,7 @@ ATTENTION: Don't forget to accept the EULA down below and don't forget to edit t
 | Name | Value | Example |
 | --- | --- | --- |
 | SERVER_DIR | Folder for gamefile | /serverdata/serverfiles |
-| RUNTIME_NAME | Enter your extracted Runtime folder name. Don't change unless you are knowing what you are doing! | jre1.8.0_211 |
+| RUNTIME_NAME | Enter your extracted Runtime folder name. Don't change unless you are knowing what you are doing! | basicjre |
 | JAR_NAME | Executable jar file (Minecraft Serverfile) withouat the .jar extension. | server |
 | GAME_PARAMS | Extra startup Parameters if needed (leave empty if not needed) | |
 | GAME_PORT | TCP Gameport for the server | 25565 |
@@ -24,7 +24,7 @@ ATTENTION: Don't forget to accept the EULA down below and don't forget to edit t
 ```
 docker run --name MinecraftBasicServer -d \
 	-p 25565:25565 \
-	--env 'RUNTIME_NAME=jre1.8.0_211' \
+	--env 'RUNTIME_NAME=basicjre' \
 	--env 'JAR_NAME=server' \
 	--env 'GAME_PORT=25565' \
 	--env 'XMX_SIZE=1024' \

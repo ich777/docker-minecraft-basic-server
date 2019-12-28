@@ -7,17 +7,22 @@ if [ ! -d ${SERVER_DIR}/runtime ]; then
 	echo "---'runtime' folder not found, creating...---"
 	mkdir ${SERVER_DIR}/runtime
 else
-	echo "---"runtime" folder found---"
+	echo "---'runtime' folder found---"
 fi
 
 echo "---Checking if Runtime is installed---"
 if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
-    if [ "${RUNTIME_NAME}" == "jre1.8.0_211" ]; then
+    if [ "${RUNTIME_NAME}" == "basicjre" ]; then
     	echo "---Downloading and installing Runtime---"
 		cd ${SERVER_DIR}/runtime
-		wget -qi ${RUNTIME_NAME} https://github.com/ich777/docker-minecraft-basic-server/raw/master/runtime/8u211.tar.gz
-        tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/8u211.tar.gz
-        rm -R ${SERVER_DIR}/runtime/8u211.tar.gz
+		if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
+			echo "---Successfully downloaded Runtime!---"
+		else
+			echo "---Something went wrong, can't download Runtime, putting server in sleep mode---"
+			sleep infinity
+		fi
+        tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/basicjre.tar.gz
+        rm -R ${SERVER_DIR}/runtime/basicjre.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
@@ -28,13 +33,18 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
     fi
 else
 	echo "---Runtime found---"
-fi      
+fi    
 
 echo "---Checking for Minecraft Server executable ---"
-if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
+if [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
 	cd ${SERVER_DIR}
 	echo "---Downloading Minecraft Server 1.14.1---"
-    wget -qi ${JAR_NAME} https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar ; then
+		echo "---Successfully downloaded Minecraft Server!---"
+	else
+		echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
+		sleep infinity
+	fi
     sleep 2
     if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
     	echo "----------------------------------------------------------------------------------------------------"
@@ -47,10 +57,16 @@ else
 fi
 
 echo "---Preparing Server---"
+export RUNTIME_NAME="$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)"
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
-    wget -qi ${SERVER_DIR}/server.properties https://raw.githubusercontent.com/ich777/docker-minecraft-basic-server/master/config/server.properties
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-minecraft-basic-server/master/config/server.properties ; then
+		echo "---Successfully downloaded 'server.properties'!---"
+	else
+		echo "---Something went wrong, can't download 'server.properties', putting server in sleep mode---"
+		sleep infinity
+	fi
 else
     echo "---'server.properties' found..."
 fi
