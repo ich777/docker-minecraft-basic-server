@@ -38,8 +38,8 @@ fi
 echo "---Checking for Minecraft Server executable ---"
 if [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
 	cd ${SERVER_DIR}
-	echo "---Downloading Minecraft Server 1.14.1---"
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar ; then
+	echo "---Downloading Minecraft Server 1.15.1---"
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0cf0a1/server.jar ; then
 		echo "---Successfully downloaded Minecraft Server!---"
 	else
 		echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
