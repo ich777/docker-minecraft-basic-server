@@ -8,7 +8,7 @@ RUN apt-get update && \
 
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV RUNTIME_NAME="template"
+ENV RUNTIME_NAME="basicjre"
 ENV JAR_NAME="template"
 ENV GAME_PARAMS=""
 ENV GAME_PORT=25565
