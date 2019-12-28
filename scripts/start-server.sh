@@ -3,20 +3,20 @@ echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
 
 echo "---Checking if Runtime is installed---"
-if [ -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
+if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
     if [ "${RUNTIME_NAME}" == "basicjre" ]; then
     	echo "---Downloading and installing Runtime---"
-		cd ${DATA_DIR}/runtime
+		cd ${SERVER_DIR}/runtime
 		if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
 			echo "---Successfully downloaded Runtime!---"
 		else
 			echo "---Something went wrong, can't download Runtime, putting server in sleep mode---"
 			sleep infinity
 		fi
-        tar --directory ${DATA_DIR}/runtime -xvzf ${DATA_DIR}/runtime/basicjre.tar.gz
-        rm -R ${DATA_DIR}/runtime/basicjre.tar.gz
+        tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/basicjre.tar.gz
+        rm -R ${SERVER_DIR}/runtime/basicjre.tar.gz
     else
-    	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
+    	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
         	echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
         	echo "---------------------------------------------------------------------------------------------"
@@ -49,7 +49,7 @@ else
 fi
 
 echo "---Preparing Server---"
-export RUNTIME_NAME="$(ls -d ${DATA_DIR}/runtime/* | cut -d '/' -f4)"
+export RUNTIME_NAME="$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)"
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
