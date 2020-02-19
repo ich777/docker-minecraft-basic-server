@@ -16,7 +16,7 @@ ATTENTION: Don't forget to accept the EULA down below and don't forget to edit t
 | GAME_PORT | TCP Gameport for the server | 25565 |
 | XMX_SIZE | Enter your XMX size in MB (XMX=The maximum heap size. The performance will decrease if the max heap value is set lower than the amount of live data. It will force frequent garbage collections in order to free up space). | 1024 |
 | XMS_SIZE | Enter your XMS size in MB (XMS=The initial and minimum heap size. It is recommended to set the minimum heap size equivalent to the maximum heap size in order to minimize the garbage collection). | 1024 |
-| EXTRA_JVM_PARAMS | Extra JVM startup Parameters if needed (leave empty if not needed) | 99 |
+| EXTRA_JVM_PARAMS | Extra JVM startup Parameters if needed (leave empty if not needed) | |
 | ACCEPT_EULA | Head over to: https://account.mojang.com/documents/minecraft_eula to read the EULA. (If you accept the EULA change the value to 'true' without quotes). | true |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
