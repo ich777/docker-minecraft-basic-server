@@ -97,8 +97,9 @@ fi
 if [ "${ACCEPT_EULA}" == "true" ]; then
 	if grep -rq 'eula=false' ${SERVER_DIR}/eula.txt; then
     	sed -i '/eula=false/c\eula=true' ${SERVER_DIR}/eula.txt
-		echo "---EULA accepted, please restart server---"
-        sleep infinity
+		echo "---EULA accepted, server restarting, please wait...---"
+        sleep 5
+        exit 0
     fi
 elif [ "${ACCEPT_EULA}" == "false" ]; then
 	echo
