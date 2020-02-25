@@ -19,18 +19,17 @@ ENV ACCEPT_EULA="false"
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
+ENV USER="minecraft"
+ENV DATA_PERM=770
 
 RUN mkdir $DATA_DIR && \
 	mkdir $SERVER_DIR && \
-	useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID minecraft && \
-	chown -R minecraft $DATA_DIR && \
+	useradd -d $DATA_DIR -s /bin/bash $USER && \
+	chown -R $USER $DATA_DIR && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/  && \
-	chown -R minecraft /opt/scripts
-
-USER minecraft
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-server.sh"]
+ENTRYPOINT ["/opt/scripts/start.sh"]
