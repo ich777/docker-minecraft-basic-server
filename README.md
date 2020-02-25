@@ -1,6 +1,6 @@
 # Minecraft Basic Server in Docker optimized for Unraid
 This is a Basic Minecraft Server, with the basic configuration it will download and install a Vanilla Minecraft Server. You can also install a FTB (FeedTheBeast), Bukkit, Spigot,... server.
-Start the container for the first time let it do it's work and shut it down. After that copy over your favorite server executable (don't forget to set the Serverfile name to the same as you copied over) and start the container again or simply start the server if you wait for it to completely start if you want to play Minecraft Vanilla.
+If you want to copy over your favorite server executable (don't forget to set the Serverfile name to the same as you copied over without the '.jar' extension) and start the container again or simply start the server if you wait for it to completely start if you want to play Minecraft Vanilla.
 
 ATTENTION: Don't forget to accept the EULA down below and don't forget to edit the 'server.properties' file the server is by default configured to be a LAN server and to be not snooped.
 
