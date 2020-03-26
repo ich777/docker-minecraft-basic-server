@@ -17,5 +17,5 @@ fi
 
 echo "---Starting...---"
 chown -R ${UID}:${GID} /opt/scripts
-chown -R ${DATA_DIR} /opt/scripts
+chown -R ${UID}:${GID} ${DATA_DIR}
 su ${USER} -c "/opt/scripts/start-server.sh"
