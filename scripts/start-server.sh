@@ -85,6 +85,7 @@ else
 fi
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
+screen -wipe
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
@@ -114,7 +115,9 @@ fi
 echo "---Waiting for logs, please stand by...---"
 sleep 30
 if [ -f ${SERVER_DIR}/logs/latest.log ]; then
-        tail -F ${SERVER_DIR}/logs/latest.log
+	screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
+	tail -F ${SERVER_DIR}/logs/latest.log
 else
-        tail -f ${SERVER_DIR}/masterLog.0
+	screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
+	tail -f ${SERVER_DIR}/masterLog.0
 fi
