@@ -4,7 +4,7 @@ If you want to copy over your favorite server executable (don't forget to set th
 
 ATTENTION: Don't forget to accept the EULA down below and don't forget to edit the 'server.properties' file the server is by default configured to be a LAN server and to be not snooped.
 
->**CONSOLE:** To connect to the console open up the terminal on the host machine and type in: 'docker exec -u minecraft -ti <Name of your Container> screen -xS Minecraft' (without quotes) to exit the screen session press CTRL+A and then CTRL+D or simply close the terminal window in the first place.
+>**CONSOLE:** To connect to the console open up the terminal on the host machine and type in: 'docker exec -u minecraft -ti Name of your Container screen -xS Minecraft' (without quotes) to exit the screen session press CTRL+A and then CTRL+D or simply close the terminal window in the first place.
 
 ## Env params
 | Name | Value | Example |
