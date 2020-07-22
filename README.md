@@ -2,6 +2,8 @@
 This is a Basic Minecraft Server, with the basic configuration it will download and install a Vanilla Minecraft Server. You can also install a FTB (FeedTheBeast), Bukkit, Spigot,... server.
 If you want to copy over your favorite server executable (don't forget to set the Serverfile name to the same as you copied over without the '.jar' extension) and start the container again or simply start the server if you wait for it to completely start if you want to play Minecraft Vanilla.
 
+UPDATE: If you set the variable GAME_V to 'latest' the container will check on every restart if there is a newer version available (if set to 'latest' the variable JAR_NAME has to be 'server').
+
 ATTENTION: Don't forget to accept the EULA down below and don't forget to edit the 'server.properties' file the server is by default configured to be a LAN server and to be not snooped.
 
 >**CONSOLE:** To connect to the console open up the terminal on the host machine and type in: 'docker exec -u minecraft -ti NAMEOFYOURCONTAINER screen -xS Minecraft' (without quotes) to exit the screen session press CTRL+A and then CTRL+D or simply close the terminal window in the first place.
@@ -14,6 +16,7 @@ ATTENTION: Don't forget to accept the EULA down below and don't forget to edit t
 | JAR_NAME | Executable jar file (Minecraft Serverfile) withouat the .jar extension. | server |
 | GAME_PARAMS | Extra startup Parameters if needed (leave empty if not needed) | |
 | GAME_PORT | TCP Gameport for the server | 25565 |
+| GAME_V | If set to 'latest' the JAR_NAME must be 'server' valid options are 'latest', 'custom' or simply leave empty | latest |
 | XMX_SIZE | Enter your XMX size in MB (XMX=The maximum heap size. The performance will decrease if the max heap value is set lower than the amount of live data. It will force frequent garbage collections in order to free up space). | 1024 |
 | XMS_SIZE | Enter your XMS size in MB (XMS=The initial and minimum heap size. It is recommended to set the minimum heap size equivalent to the maximum heap size in order to minimize the garbage collection). | 1024 |
 | EXTRA_JVM_PARAMS | Extra JVM startup Parameters if needed (leave empty if not needed) | |
@@ -27,6 +30,7 @@ docker run --name MinecraftBasicServer -d \
 	-p 25565:25565 \
 	--env 'RUNTIME_NAME=basicjre' \
 	--env 'JAR_NAME=server' \
+	--env 'GAME_V=latest' \
 	--env 'GAME_PORT=25565' \
 	--env 'XMX_SIZE=1024' \
     --env 'XMS_SIZE=1024' \
