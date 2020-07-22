@@ -39,6 +39,7 @@ if [ "${GAME_V}" == "custom" ]; then
 		echo "---Can't find '${JAR_NAME}.jar' please make sure that it's in the main directory, putting server into sleep mode!---"
 		sleep infinity
 	fi
+	echo "---Executable '${JAR_NAME}.jar' in main directory found, continuing!---"
 elif [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
 	echo "---Trying to get latest version from Minecraft---"
 	LAT_V="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')"
