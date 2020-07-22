@@ -3,7 +3,7 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends screen && \
+	apt-get -y install --no-install-recommends screen curl jq unzip && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
