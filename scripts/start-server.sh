@@ -48,7 +48,7 @@ elif [ "${GAME_V}" == "latest" ]; then
 	if [ -z "$VERSION" ]; then
 		LAT_V="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')"
 		if [ -z "$LAT_V" ]; then
-			if [ -z "$CUR_V : then
+			if [ -z "$CUR_V" ]; then
 				echo "---Can't get latest version from Minecraft falling back to v1.16.2---"
 				DL_URL="https://launcher.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar"
 				LAT_V="1.16.2"
@@ -78,7 +78,7 @@ elif [ "${GAME_V}" == "latest" ]; then
 			sleep infinity
 		fi
 	elif [ "$LAT_V" == "$CUR_V" ]; then
-			echo "---Minecraft v${CUR_V} is Up-To-Date!---"
+		echo "---Minecraft v${CUR_V} is Up-To-Date!---"
 	fi
 fi
 
