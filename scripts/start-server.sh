@@ -40,64 +40,42 @@ if [ "${GAME_V}" == "custom" ]; then
 		sleep infinity
 	fi
 	echo "---Executable '${JAR_NAME}.jar' in main directory found, continuing!---"
-elif [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
-	echo "---Trying to get latest version from Minecraft---"
-	LAT_V="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')"
-	if [ ! -z "$LAT_V"]; then
-		echo "---Latest version from Minecraft: v$LAT_V"
-		LAT_V_JSON="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.versions' | grep $LAT_V | grep url | cut -d '"' -f 4)"
-		LAT_V_DL="$(curl -s $LAT_V_JSON | jq -r '.downloads.server' | grep url |cut -d '"' -f 4)"
-	fi
-	if [ -z $LAT_V_DL ]; then
-		echo "---Can't get latest version from Minecraft falling back to v 1.16.1---"
-		LAT_V_DL="https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar"
-		LAT_V="1.16.1"
-	fi
-	cd ${SERVER_DIR}
-	echo "---Downloading Minecraft Server $LAT_V---"
-	if wget -q -nc --show-progress --progress=bar:force:noscroll "$LAT_V_DL" ; then
-		echo "---Successfully downloaded Minecraft $LAT_V Server!---"
-	else
-		echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
-		sleep infinity
-	fi
-    sleep 2
-    if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
-    	echo "----------------------------------------------------------------------------------------------------"
-    	echo "---Something went wrong, please install Minecraft Server manually. Putting server into sleep mode---"
-        echo "----------------------------------------------------------------------------------------------------"
-        sleep infinity
-    fi
 elif [ "${GAME_V}" == "latest" ]; then
-	cd ${SERVER_DIR}
-	CUR_V="$(unzip -p server.jar version.json | grep "name" | cut -d '"' -f 4)"
-	LAT_V="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')"
-	GAME_V=$LAT_V
-	if [ "$GAME_V" != "$CUR_V" ]; then
-		echo "---Newer version of Minecraft v$LAT_V found, currently installed: $CUR_V---"
-		rm ${SERVER_DIR}/${JAR_NAME}.jar
+	VERSION="$(wget -qO- https://github.com/ich777/versions/raw/master/MinecraftJavaEdition)"
+	LAT_V="$(echo "$VERSION" | grep "LATEST" | cut -d '=' -f2)"
+	DL_URL="$(echo "$VERSION" | grep "DL_URL" | cut -d '=' -f2)"
+	if [ ! -z "$VERSION" ]; then
+		LAT_V="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')"
 		if [ ! -z "$LAT_V" ]; then
-			echo "---Latest version from Minecraft: v$LAT_V"
-			LAT_V_JSON="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.versions' | grep $LAT_V | grep url | cut -d '"' -f 4)"
-			LAT_V_DL="$(curl -s $LAT_V_JSON | jq -r '.downloads.server' | grep url |cut -d '"' -f 4)"
+			echo "---Can't get latest version from Minecraft falling back to v 1.16.2---"
+			DL_URL="https://launcher.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar"
+			LAT_V="1.16.2"
 		fi
-		if [ -z $LAT_V_DL ]; then
-			echo "---Can't get latest version from Minecraft falling back to v 1.16.1---"
-			LAT_V_DL="https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar"
-			LAT_V="1.16.1"
-		fi
+	fi
+	if [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
+		cd ${SERVER_DIR}
 		echo "---Downloading Minecraft Server $LAT_V---"
-		if wget -q -nc --show-progress --progress=bar:force:noscroll "$LAT_V_DL" ; then
+		if wget -q -nc --show-progress --progress=bar:force:noscroll "$DL_URL" ; then
 			echo "---Successfully downloaded Minecraft $LAT_V Server!---"
 		else
 			echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
 			sleep infinity
 		fi
-	elif [ "$GAME_V" == "$CUR_V" ]; then
-		echo "---Minecraft v${CUR_V} is Up-To-Date!---"
 	fi
-else
-	echo "---Minecraft Server executable found---"
+	CUR_V="$(unzip -p ${SERVER_DIR}/${JAR_NAME}.jar version.json | grep "name" | cut -d '"' -f 4)"
+	if [ "$LAT_V" != "$CUR_V" ]; then
+		cd ${SERVER_DIR}
+		echo "---Newer version of Minecraft v$LAT_V found, currently installed: $CUR_V---"
+		rm ${SERVER_DIR}/${JAR_NAME}.jar
+		if wget -q -nc --show-progress --progress=bar:force:noscroll "$DL_URL" ; then
+			echo "---Successfully downloaded Minecraft $LAT_V Server!---"
+		else
+			echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
+			sleep infinity
+		fi
+	elif [ "$LAT_V" == "$CUR_V" ]; then
+			echo "---Minecraft v${CUR_V} is Up-To-Date!---"
+	fi
 fi
 
 echo "---Preparing Server---"
