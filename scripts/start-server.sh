@@ -44,12 +44,18 @@ elif [ "${GAME_V}" == "latest" ]; then
 	VERSION="$(wget -qO- https://github.com/ich777/versions/raw/master/MinecraftJavaEdition)"
 	LAT_V="$(echo "$VERSION" | grep "LATEST" | cut -d '=' -f2)"
 	DL_URL="$(echo "$VERSION" | grep "DL_URL" | cut -d '=' -f2)"
-	if [ ! -z "$VERSION" ]; then
+	CUR_V="$(unzip -p ${SERVER_DIR}/${JAR_NAME}.jar version.json | grep "name" | cut -d '"' -f 4)"
+	if [ -z "$VERSION" ]; then
 		LAT_V="$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')"
-		if [ ! -z "$LAT_V" ]; then
-			echo "---Can't get latest version from Minecraft falling back to v 1.16.2---"
-			DL_URL="https://launcher.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar"
-			LAT_V="1.16.2"
+		if [ -z "$LAT_V" ]; then
+			if [ -z "$CUR_V : then
+				echo "---Can't get latest version from Minecraft falling back to v1.16.2---"
+				DL_URL="https://launcher.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar"
+				LAT_V="1.16.2"
+			else
+				echo "---Can't get latest version from Minecraft falling back to current version: v$CUR_V---"
+				LAT_V="$CUR_V"
+			fi
 		fi
 	fi
 	if [ ! -f ${SERVER_DIR}/${JAR_NAME}.jar ]; then
@@ -61,9 +67,7 @@ elif [ "${GAME_V}" == "latest" ]; then
 			echo "---Something went wrong, can't download Minecraft Server, putting server in sleep mode---"
 			sleep infinity
 		fi
-	fi
-	CUR_V="$(unzip -p ${SERVER_DIR}/${JAR_NAME}.jar version.json | grep "name" | cut -d '"' -f 4)"
-	if [ "$LAT_V" != "$CUR_V" ]; then
+	elif [ "$LAT_V" != "$CUR_V" ]; then
 		cd ${SERVER_DIR}
 		echo "---Newer version of Minecraft v$LAT_V found, currently installed: $CUR_V---"
 		rm ${SERVER_DIR}/${JAR_NAME}.jar
