@@ -10,7 +10,7 @@ RUN apt-get update && \
 	apt-get update && \
 	apt-get -y install adoptopenjdk-8-hotspot && \
 	apt-get -y remove software-properties-common gnupg2 && \
-	apt-get -y autoremove
+	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
