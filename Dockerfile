@@ -15,7 +15,8 @@ RUN apt-get update && \
 
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV GAME_V=""
+ENV JAR_NAME="server"
+ENV GAME_V="latest"
 ENV GAME_PARAMS=""
 ENV GAME_PORT=25565
 ENV XMX_SIZE=1024
