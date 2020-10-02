@@ -1,37 +1,4 @@
 #!/bin/bash
-echo "---Checking for 'runtime' folder---"
-if [ ! -d ${SERVER_DIR}/runtime ]; then
-	echo "---'runtime' folder not found, creating...---"
-	mkdir ${SERVER_DIR}/runtime
-else
-	echo "---'runtime' folder found---"
-fi
-
-echo "---Checking if Runtime is installed---"
-if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
-    if [ "${RUNTIME_NAME}" == "basicjre" ]; then
-    	echo "---Downloading and installing Runtime---"
-		cd ${SERVER_DIR}/runtime
-		if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
-			echo "---Successfully downloaded Runtime!---"
-		else
-			echo "---Something went wrong, can't download Runtime, putting server in sleep mode---"
-			sleep infinity
-		fi
-        tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/basicjre.tar.gz
-        rm -R ${SERVER_DIR}/runtime/basicjre.tar.gz
-    else
-    	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
-        	echo "---------------------------------------------------------------------------------------------"
-        	echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
-        	echo "---------------------------------------------------------------------------------------------"
-        	sleep infinity
-        fi
-    fi
-else
-	echo "---Runtime found---"
-fi
-
 echo "---Checking for Minecraft Server executable ---"
 if [ "${GAME_V}" == "custom" ]; then
 	echo "---Custom mode enabled please make sure that '${JAR_NAME}.jar' is in the main directory!---"
@@ -83,7 +50,6 @@ elif [ "${GAME_V}" == "latest" ]; then
 fi
 
 echo "---Preparing Server---"
-export RUNTIME_NAME="$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)"
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
     echo "---No 'server.properties' found, downloading...---"
@@ -115,6 +81,8 @@ fi
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 screen -wipe 2&>/dev/null
+
+sleep infinity
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
