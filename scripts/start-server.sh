@@ -10,7 +10,7 @@ fi
 echo "---Checking if Runtime is installed---"
 if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
     if [ "${RUNTIME_NAME}" == "basicjre" ]; then
-    	echo "---Downloading and installing Runtime---"
+    	echo "---Downloading and installing Basic Runtime---"
 		cd ${SERVER_DIR}/runtime
 		if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
 			echo "---Successfully downloaded Runtime!---"
@@ -20,6 +20,30 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 		fi
         tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/basicjre.tar.gz
         rm -R ${SERVER_DIR}/runtime/basicjre.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre11" ]; then
+    	echo "---Downloading and installing JRE11---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE11_URL} ; then
+			echo "---Successfully downloaded JRE11!---"
+		else
+			echo "---Something went wrong, can't download JRE11, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre15" ]; then
+    	echo "---Downloading and installing JRE15---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE15_URL} ; then
+			echo "---Successfully downloaded JRE15!---"
+		else
+			echo "---Something went wrong, can't download JRE15, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
