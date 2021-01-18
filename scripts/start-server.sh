@@ -21,6 +21,7 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
         tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/basicjre.tar.gz
         rm -R ${SERVER_DIR}/runtime/basicjre.tar.gz
 	elif  [ "${RUNTIME_NAME}" == "jre11" ]; then
+		JRE11_URL="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.9.1%2B1/OpenJDK11U-jre_x64_linux_hotspot_11.0.9.1_1.tar.gz"
     	echo "---Downloading and installing JRE11---"
 		cd ${SERVER_DIR}/runtime
 		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE11_URL} ; then
@@ -33,6 +34,7 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
         tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
 	elif  [ "${RUNTIME_NAME}" == "jre15" ]; then
+		JRE15_URL="https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.1%2B9/OpenJDK15U-jre_x64_linux_hotspot_15.0.1_9.tar.gz"
     	echo "---Downloading and installing JRE15---"
 		cd ${SERVER_DIR}/runtime
 		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE15_URL} ; then
