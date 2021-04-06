@@ -172,7 +172,9 @@ else
 	echo "---Something went wrong, please check EULA variable---"
 fi
 echo "---Waiting for logs, please stand by...---"
-/opt/scripts/start-gotty.sh 2>/dev/null &
+if [ "${ENABLE_WEBCONSOLE}" == "true" ]; then
+    /opt/scripts/start-gotty.sh 2>/dev/null &
+fi
 sleep 30
 if [ -f ${SERVER_DIR}/logs/latest.log ]; then
 	screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
