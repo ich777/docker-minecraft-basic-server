@@ -8,7 +8,7 @@ JAVA RUNTIME: Enter your prefered Runtime 'basicjre'=jre8, 'jre11'=jre11, 'jre15
 
 ATTENTION: Don't forget to accept the EULA down below and don't forget to edit the 'server.properties' file the server is by default configured to be a LAN server and to be not snooped.
 
->**CONSOLE:** To connect to the console open up the terminal on the host machine and type in: 'docker exec -u minecraft -ti NAMEOFYOURCONTAINER screen -xS Minecraft' (without quotes) to exit the screen session press CTRL+A and then CTRL+D or simply close the terminal window in the first place.
+>**WEB CONSOLE:** You can connect to the Minecraft console by opening your browser and go to HOSTIP:9011 (eg: 192.168.1.1:9011) or click on WebUI on the Docker page within Unraid.
 
 ## Env params
 | Name | Value | Example |
@@ -29,7 +29,7 @@ ATTENTION: Don't forget to accept the EULA down below and don't forget to edit t
 ## Run example
 ```
 docker run --name MinecraftBasicServer -d \
-	-p 25565:25565 \
+	-p 25565:25565 -p 9011:8080 \
 	--env 'RUNTIME_NAME=basicjre' \
 	--env 'JAR_NAME=server' \
 	--env 'GAME_V=latest' \
