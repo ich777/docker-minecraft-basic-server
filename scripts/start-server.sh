@@ -109,6 +109,10 @@ elif [ "${GAME_V}" == "latest" ]; then
 fi
 
 echo "---Preparing Server---"
+if [ ! -f ~/.screenrc ]; then
+    echo "defscrollback 30000
+bindkey \"^C\" echo 'Blocked. Please use to command \"stop\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
+fi
 export RUNTIME_NAME="$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)"
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
@@ -168,6 +172,7 @@ else
 	echo "---Something went wrong, please check EULA variable---"
 fi
 echo "---Waiting for logs, please stand by...---"
+/opt/scripts/start-gotty.sh 2>/dev/null &
 sleep 30
 if [ -f ${SERVER_DIR}/logs/latest.log ]; then
 	screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
