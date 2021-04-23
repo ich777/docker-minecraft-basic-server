@@ -17,6 +17,8 @@ fi
 
 echo "---Starting...---"
 chown -R ${UID}:${GID} /opt/scripts
+chown -R ${UID}:${GID} /tmp/server.properties
+chmod -R 770 /tmp/server.properties
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
