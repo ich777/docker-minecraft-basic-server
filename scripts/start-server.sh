@@ -116,13 +116,7 @@ fi
 export RUNTIME_NAME="$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)"
 echo "---Checking for 'server.properties'---"
 if [ ! -f ${SERVER_DIR}/server.properties ]; then
-    echo "---No 'server.properties' found, downloading...---"
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-minecraft-basic-server/master/config/server.properties ; then
-		echo "---Successfully downloaded 'server.properties'!---"
-	else
-		echo "---Something went wrong, can't download 'server.properties', putting server in sleep mode---"
-		sleep infinity
-	fi
+	cp /tmp/server.properties ${SERVER_DIR}/
 else
     echo "---'server.properties' found..."
 fi
