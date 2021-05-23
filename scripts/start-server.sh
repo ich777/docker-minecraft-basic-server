@@ -82,6 +82,16 @@ echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 screen -wipe 2&>/dev/null
 
+echo "+-------------------------------------------------------------"
+echo "|"
+echo "| This container for ARM is deprecated and is no"
+echo "| longer actively maintained or further developed!"
+echo "|"
+echo "|  Container will start in 60 seconds!"
+echo "|"
+echo "+-------------------------------------------------------------"
+sleep 60
+
 echo "---Starting Server---"
 cd ${SERVER_DIR}
 screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m /usr/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
