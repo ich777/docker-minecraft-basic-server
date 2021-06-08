@@ -46,6 +46,19 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
         tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre16" ]; then
+		JRE16_URL="https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk16u-2021-05-08-12-45/OpenJDK16U-jre_x64_linux_hotspot_2021-05-08-12-45.tar.gz"
+    	echo "---Downloading and installing JRE16---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE16_URL} ; then
+			echo "---Successfully downloaded JRE16!---"
+		else
+			echo "---Something went wrong, can't download JRE16, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
