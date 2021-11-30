@@ -7,6 +7,16 @@ else
 	echo "---'runtime' folder found---"
 fi
 
+if [ ! -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
+	if [ "${RUNTIME_NAME}" == "basicjre" ]; then
+		if [ "$(find ${SERVER_DIR}/runtime -name jre*)" != "jre1.8.0_261" ]; then
+			rm -rf ${SERVER_DIR}/runtime/*
+		fi
+	elif [ "$(find ${SERVER_DIR}/runtime -name jre*)" != "$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)" ]; then
+		rm -rf ${SERVER_DIR}/runtime/*
+	fi
+fi
+
 echo "---Checking if Runtime is installed---"
 if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
     if [ "${RUNTIME_NAME}" == "basicjre" ]; then
@@ -54,6 +64,19 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 			echo "---Successfully downloaded JRE16!---"
 		else
 			echo "---Something went wrong, can't download JRE16, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre17" ]; then
+		JRE17_URL="https://github.com/AdoptOpenJDK/openjdk17-binaries/releases/download/jdk-2021-05-07-13-31/OpenJDK-debugimage_x64_linux_hotspot_2021-05-06-23-30.tar.gz"
+    	echo "---Downloading and installing JRE17---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE17_URL} ; then
+			echo "---Successfully downloaded JRE17!---"
+		else
+			echo "---Something went wrong, can't download JRE17, putting server in sleep mode---"
 			sleep infinity
 		fi
 		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
