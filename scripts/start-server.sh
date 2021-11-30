@@ -80,7 +80,7 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 			sleep infinity
 		fi
 		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
-        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=2 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
