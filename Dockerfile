@@ -1,4 +1,4 @@
-FROM ich777/debian-baseimage:armv7
+FROM ich777/debian-baseimage:latest_armv7
 
 LABEL maintainer="admin@minenet.at"
 
