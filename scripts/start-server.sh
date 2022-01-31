@@ -178,7 +178,11 @@ screen -wipe 2&>/dev/null
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
-screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+if [ -z "${JVM_CUSTOM_COMMAND}" ]; then
+	screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+else
+	screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${JVM_CUSTOM_COMMAND} ${GAME_PARAMS}
+fi
 sleep 2
 if [ ! -f $SERVER_DIR/eula.txt ]; then
 	echo "---EULA not found please stand by...---"
