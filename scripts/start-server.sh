@@ -9,7 +9,7 @@ fi
 
 if [ ! -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 	if [ "${RUNTIME_NAME}" == "basicjre" ]; then
-		if [ "$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)" != "jre1.8.0_261" ]; then
+		if [ "$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)" != "jre1.8.0_333" ]; then
 			rm -rf ${SERVER_DIR}/runtime/*
 		fi
 	elif [ "${RUNTIME_NAME}" != "$(ls -d ${SERVER_DIR}/runtime/* | cut -d '/' -f5)" ]; then
