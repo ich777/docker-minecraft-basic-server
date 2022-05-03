@@ -19,9 +19,6 @@ else
     echo "---No optional script found, continuing---"
 fi
 
-echo "---Checking configuration for noVNC---"
-novnccheck
-
 echo "---Taking ownership of data...---"
 chown -R ${UID}:${GID} /tmp/server.properties
 chmod -R 770 /tmp/server.properties
