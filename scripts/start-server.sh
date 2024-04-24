@@ -82,6 +82,19 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
         tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre21" ]; then
+		JRE21_URL="https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-x64_bin.tar.gz"
+    	echo "---Downloading and installing JRE21---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE21_URL} ; then
+			echo "---Successfully downloaded JRE21!---"
+		else
+			echo "---Something went wrong, can't download JRE21, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
