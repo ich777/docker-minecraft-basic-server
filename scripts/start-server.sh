@@ -95,6 +95,58 @@ if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
         tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre22" ]; then
+		JRE22_URL="https://download.java.net/java/GA/jdk22.0.2/c9ecb94cd31b495da20a27d4581645e8/9/GPL/openjdk-22.0.2_linux-x64_bin.tar.gz"
+    	echo "---Downloading and installing JRE22---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE22_URL} ; then
+			echo "---Successfully downloaded JRE22!---"
+		else
+			echo "---Something went wrong, can't download JRE22, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre23" ]; then
+		JRE23_URL="https://download.java.net/java/GA/jdk23.0.2/6da2a6609d6e406f85c491fcb119101b/7/GPL/openjdk-23.0.2_linux-x64_bin.tar.gz"
+    	echo "---Downloading and installing JRE23---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE23_URL} ; then
+			echo "---Successfully downloaded JRE23!---"
+		else
+			echo "---Something went wrong, can't download JRE23, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre24" ]; then
+		JRE24_URL="https://download.java.net/java/GA/jdk24.0.2/fdc5d0102fe0414db21410ad5834341f/12/GPL/openjdk-24.0.2_linux-x64_bin.tar.gz"
+    	echo "---Downloading and installing JRE24---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE24_URL} ; then
+			echo "---Successfully downloaded JRE24!---"
+		else
+			echo "---Something went wrong, can't download JRE24, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre25" ]; then
+		JRE25_URL="https://download.java.net/java/GA/jdk25/bd75d5f9689641da8e1daabeccb5528b/36/GPL/openjdk-25_linux-x64_bin.tar.gz"
+    	echo "---Downloading and installing JRE25---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE25_URL} ; then
+			echo "---Successfully downloaded JRE25!---"
+		else
+			echo "---Something went wrong, can't download JRE25, putting server in sleep mode---"
+			sleep infinity
+		fi
+		mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
     else
     	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
