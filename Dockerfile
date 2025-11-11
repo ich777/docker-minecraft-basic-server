@@ -13,7 +13,7 @@ RUN wget -O /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v
 
 ENV DATA_DIR="/serverdata"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV RUNTIME_NAME="jre17"
+ENV RUNTIME_NAME="jre22"
 ENV JAR_NAME="server"
 ENV GAME_V=""
 ENV GAME_PARAMS=""
